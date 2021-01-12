@@ -9,6 +9,7 @@ function App() {
         <Navbar />
         <BookList/>
       </BookContextProvider>
+      <p>Click on book to delete..</p>
     </div> 
   );
 }
