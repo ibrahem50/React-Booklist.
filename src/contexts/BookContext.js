@@ -1,4 +1,4 @@
-import React,{createContext,/*useState,*/useReducer} from 'react';
+import React,{createContext,/*useState,*/useReducer,useEffect} from 'react';
 import { bookReducer } from '../reducers/bookReducer';
 
 export const BookContext = createContext();
@@ -9,7 +9,13 @@ const BookContextProvider=(props)=>{
         {title:'the final empire',author:'brandon sanderson', id:'2'}
     ]);*/
 
-    const [books,dispatch]=useReducer(bookReducer,[]);
+    const [books,dispatch]=useReducer(bookReducer,[],()=>{
+        const localData = localStorage.getItem('books');
+        return localData ? JSON.parse(localData) : [];
+    });
+    useEffect(() => {
+        localStorage.setItem('books',JSON.stringify(books))
+    }, [books]);
 
     /*const addBook = (title,author)=>{
         setBooks([...books,{title,author,id:Math.floor(Math.random()*100)}]);
